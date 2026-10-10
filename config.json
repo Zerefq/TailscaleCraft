@@ -1,0 +1,11 @@
+{
+  "javaPort": 25565,
+  "bedrockPort": 19132,
+  "memoryGB": 4,
+  "maxPlayers": 10,
+  "viewDistance": 6,
+  "simulationDistance": 4,
+  "bedrockMtu": 1200,
+  "allowOfflineBedrock": true,
+  "motd": "TailscaleCraft - Java and Bedrock"
+}

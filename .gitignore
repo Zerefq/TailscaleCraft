@@ -1,0 +1,7 @@
+/server/
+/runtime/
+/backups/
+/dist/
+*.log
+config.local.json
+*.tmp
