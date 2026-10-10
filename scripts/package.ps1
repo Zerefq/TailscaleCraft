@@ -1,5 +1,5 @@
 . (Join-Path $PSScriptRoot 'common.ps1')
-$files=@('START.cmd','SETUP.cmd','CHECK.cmd','FIREWALL.cmd','BACKUP.cmd','config.json','dependencies.json','.gitignore','LICENSE','README.md','CONNECT.md','THIRD-PARTY.md','scripts','tests')
+$files=@('START.cmd','SETUP.cmd','CHECK.cmd','FIREWALL.cmd','BACKUP.cmd','config.json','dependencies.json','.gitignore','LICENSE','README.md','CONNECT.md','THIRD-PARTY.md','scripts','tests','datapacks')
 $stage=Join-Path $script:ProjectRoot ('dist\stage-' + [guid]::NewGuid().ToString('N'))
 $output=Join-Path $stage 'TailscaleCraft'
 New-Item -ItemType Directory -Path $output -Force | Out-Null

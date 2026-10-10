@@ -182,6 +182,21 @@ function Update-ServerConfig($Address, $Settings, $Directory = $script:ServerDir
         $yaml = [regex]::Replace($yaml,'(?ms)(^advanced:\s*\r?\n.*?^  bedrock:\s*\r?\n)',('$1    mtu: ' + $Settings.bedrockMtu + "`n"))
     }
     Write-Utf8 $geyserPath $yaml
+    Install-DeathCoordinates $Directory
+}
+
+function Install-DeathCoordinates($Directory) {
+    $properties = Get-Content -LiteralPath (Join-Path $Directory 'server.properties') -Raw
+    $worldName = 'world'
+    if ($properties -match '(?m)^level-name=([^\r\n]+)') { $worldName=$matches[1].Trim() }
+    $serverRoot=[IO.Path]::GetFullPath($Directory).TrimEnd('\','/')
+    $worldRoot=[IO.Path]::GetFullPath((Join-Path $serverRoot $worldName))
+    if (!$worldRoot.StartsWith($serverRoot+'\',[StringComparison]::OrdinalIgnoreCase)) { throw 'World directory must be inside the server directory to install the death coordinates datapack.' }
+    $destination=Join-Path $worldRoot 'datapacks\tailscalecraft-deaths'
+    New-Item -ItemType Directory -Path $destination -Force | Out-Null
+    $source=Join-Path $script:ProjectRoot 'datapacks\tailscalecraft-deaths'
+    Copy-Item -LiteralPath (Join-Path $source 'pack.mcmeta') -Destination $destination -Force
+    Copy-Item -LiteralPath (Join-Path $source 'data') -Destination $destination -Recurse -Force
 }
 
 function Assert-ServerStopped($Settings) {

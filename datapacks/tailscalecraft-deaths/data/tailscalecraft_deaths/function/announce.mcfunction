@@ -1,0 +1,2 @@
+tellraw @a [{"text":"[Смерть] ","color":"gold"},{"selector":"@s","color":"yellow"},{"text":" — X: ","color":"gray"},{"nbt":"LastDeathLocation.pos[0]","entity":"@s","color":"white"},{"text":", Y: ","color":"gray"},{"nbt":"LastDeathLocation.pos[1]","entity":"@s","color":"white"},{"text":", Z: ","color":"gray"},{"nbt":"LastDeathLocation.pos[2]","entity":"@s","color":"white"},{"text":" | ","color":"gray"},{"nbt":"LastDeathLocation.dimension","entity":"@s","color":"aqua"}]
+scoreboard players set @s tc_deaths 0

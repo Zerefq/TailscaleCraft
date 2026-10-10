@@ -58,7 +58,13 @@ try {
     if ($reply[0] -ne 28) { throw 'Wrong Bedrock RakNet pong' }
     if ($log -match 'Error occurred while enabling|Could not load|Failed to start') { throw 'Plugin startup error' }
     $process.StandardInput.WriteLine('geyser version')
-    Start-Sleep -Seconds 1
+    $process.StandardInput.WriteLine('datapack list enabled')
+    $process.StandardInput.WriteLine('scoreboard objectives list')
+    Start-Sleep -Seconds 2
+    $log=Get-Content -LiteralPath (Join-Path $testDir 'logs\latest.log') -Raw
+    if ($log -match 'Failed to load function|Failed to parse|Failed to load data packs') { throw 'Datapack loading error' }
+    if ($log -notmatch 'tc_deaths' -or $log -notmatch 'tailscalecraft-deaths') { throw 'Death coordinates datapack is not active' }
+    Write-Host 'PASS: death coordinates datapack loads and creates its deathCount objective.'
     Write-Host 'PASS: clean installation starts, Java status and Bedrock UDP ping respond through the detected Tailscale address.'
 } finally {
     if (!$process.HasExited) {
